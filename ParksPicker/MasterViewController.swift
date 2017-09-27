@@ -40,7 +40,7 @@ class MasterViewController: UICollectionViewController {
         navigationController?.isToolbarHidden = true
         // edit
         navigationItem.leftBarButtonItem = editButtonItem
-
+        
         let width = collectionView!.frame.width / 3
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: width, height: width)
@@ -79,11 +79,6 @@ class MasterViewController: UICollectionViewController {
         collectionView?.refreshControl?.endRefreshing()
     }
     
-    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
-        let indexPaths = collectionView!.indexPathsForSelectedItems!
-        parksDataSource.deleteItemsAtIndexPaths(indexPaths)
-        collectionView?.deleteItems(at: indexPaths)
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MasterToDetail" {
@@ -92,6 +87,31 @@ class MasterViewController: UICollectionViewController {
         }
     }
     
+    // delete
+    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
+        // delete with normal effect
+        //        let indexPaths = collectionView!.indexPathsForSelectedItems!
+        //        parksDataSource.deleteItemsAtIndexPaths(indexPaths)
+        //        collectionView?.deleteItems(at: indexPaths)
+        
+        // delete with custom layout effect
+        let indexPaths = collectionView!.indexPathsForSelectedItems!
+        let layout = collectionViewLayout as! ParksViewFlowLayout
+        layout.disapparingIndexPaths = indexPaths
+        
+        parksDataSource.deleteItemsAtIndexPaths(indexPaths)
+        
+        UIView.animate(withDuration: 0.65,
+                       delay: 0.0,
+                       options: UIViewAnimationOptions(),
+                       animations: {
+                        self.collectionView!.deleteItems(at: indexPaths)
+        }) { (_) in
+            layout.disapparingIndexPaths = nil
+        }
+    }
+    
+    // add
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem?) {
         let indexPath = parksDataSource.indexPathForNewRandomPark()
         let layout = collectionViewLayout as! ParksViewFlowLayout
