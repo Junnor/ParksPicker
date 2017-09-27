@@ -79,6 +79,12 @@ class MasterViewController: UICollectionViewController {
         collectionView?.refreshControl?.endRefreshing()
     }
     
+    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
+        let indexPaths = collectionView!.indexPathsForSelectedItems!
+        parksDataSource.deleteItemsAtIndexPaths(indexPaths)
+        collectionView?.deleteItems(at: indexPaths)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MasterToDetail" {
             let detailViewController = segue.destination as! DetailViewController

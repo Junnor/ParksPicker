@@ -140,6 +140,15 @@
                             <outlet property="delegate" destination="fLG-pH-VrP" id="qGc-VV-pae"/>
                         </connections>
                     </collectionView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="jbQ-7q-R8j"/>
+                        <barButtonItem systemItem="trash" id="9f6-Aj-2yv">
+                            <connections>
+                                <action selector="deleteButtonTapped:" destination="fLG-pH-VrP" id="BBF-dA-GOm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="0zZ-t6-8DR"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="Uaq-wY-hfP">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="fGk-a4-Ehx">
                             <connections>
@@ -147,6 +156,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="fGk-a4-Ehx" id="pNa-nM-8fb"/>
                         <segue destination="NSL-op-UTf" kind="show" identifier="MasterToDetail" id="d5i-wz-fPg"/>
